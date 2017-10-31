@@ -3,10 +3,10 @@ package yodb
 import java.nio.file.Path
 
 object PathResolve {
-  def head(root: Path): Path = root.resolve("refs/HEAD")
-
-  def objects(root: Path, commit: Commit): Path = root
+  def root(path: Path): Path = path.resolve(".yodb")
+  def head(path: Path): Path = root(path).resolve("refs").resolve("HEAD")
+  def objects(path: Path, digest: String): Path = root(path)
     .resolve("objects")
-    .resolve(commit.dir)
-    .resolve(commit.file)
+    .resolve(digest.take(2))
+    .resolve(digest.drop(2))
 }

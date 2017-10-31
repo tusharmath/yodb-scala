@@ -10,8 +10,6 @@ case class Commit(parent: String, data: String) {
     .digest(toString.getBytes)
     .map("%02x" format _)
     .mkString
-  def dir: String = digest.take(2)
-  def file: String = digest.drop(2)
   override def toString: String = parent ++ data.toString
 }
 

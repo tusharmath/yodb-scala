@@ -23,19 +23,7 @@ class CommitTest extends FunSpec {
     }
   }
 
-  describe("file") {
-    it("should skip the first two letters") {
-      val commit = Commit(Mock.TEST_PARENT, Mock.TEST_DATA)
-      assert(commit.file === Mock.TEST_DIGEST.slice(2, 32))
-    }
-  }
 
-  describe("dir") {
-    it("should pick the first two letters") {
-      val commit = Commit(Mock.TEST_PARENT, Mock.TEST_DATA)
-      assert(commit.dir === Mock.TEST_DIGEST.slice(0, 2))
-    }
-  }
 
   describe("digest") {
     it("should return the md5") {
