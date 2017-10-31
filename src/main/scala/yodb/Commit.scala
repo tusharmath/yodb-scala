@@ -1,6 +1,5 @@
+package yodb
 import java.security.MessageDigest
-
-
 
 case class Commit(parent: String, data: String) {
   require(parent.length == 32, "Invalid length of parent digest")
