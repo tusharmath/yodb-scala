@@ -7,15 +7,16 @@ import yodb.core.Block
 
 
 object DBWriter {
-  def write(base: Path, commit: Block): String = {
-    val digest = commit.digest
-    val path = IOPath.objects(base, digest)
-    println("HI", path.toString)
-    val fd = path.toFile
-//    println(fd.getAbsoluteFile)
-    fd.mkdirs()
-    val file = new FileOutputStream(fd)
-    file.write(commit.data)
-    digest
+
+  def write(base: Path, commit: Block): Unit = {
+    val dbPath = IOPath(base)
+    createDir(commit, dbPath)
+    createFile(commit, dbPath)
   }
+  private def createFile(commit: Block, dbPath: IOPath): Unit =
+    new FileOutputStream(dbPath.file(commit.digest).toFile)
+      .write(commit.data)
+
+  private def createDir(commit: Block, dbPath: IOPath): Boolean =
+    dbPath.dir(commit.digest).toFile.mkdirs()
 }
