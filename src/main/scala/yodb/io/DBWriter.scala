@@ -2,21 +2,25 @@ package yodb.io
 
 import java.io.FileOutputStream
 import java.nio.file.Path
-
 import yodb.core.Block
 
 
-object DBWriter {
-
-  def write(base: Path, commit: Block): Unit = {
-    val dbPath = IOPath(base)
-    createDir(commit, dbPath)
-    createFile(commit, dbPath)
+case class DBWriter(base: Path) {
+  val dbPath = IOPath(base)
+  def write(commit: Block): Unit = {
+    createDir(commit)
+    createFile(commit)
   }
-  private def createFile(commit: Block, dbPath: IOPath): Unit =
+  private def createFile(commit: Block): Unit =
     new FileOutputStream(dbPath.file(commit.digest).toFile)
       .write(commit.data)
 
-  private def createDir(commit: Block, dbPath: IOPath): Boolean =
+  private def createDir(commit: Block): Boolean =
     dbPath.dir(commit.digest).toFile.mkdirs()
+
+  def prune(): Boolean = {
+    val file = dbPath.root.toFile
+    file.listFiles().map(_.delete())
+    file.delete()
+  }
 }
