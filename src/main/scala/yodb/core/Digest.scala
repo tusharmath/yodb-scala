@@ -3,8 +3,7 @@ package yodb.core
 import yodb.util.Hex
 
 class Digest(val bytes: Array[Byte]) {
-  def toHexString: String =  Hex.bytes2hex(bytes)
-  override def toString: String = toHexString
+  override def toString: String = Hex.bytes2hex(bytes)
 }
 
 object Digest {
