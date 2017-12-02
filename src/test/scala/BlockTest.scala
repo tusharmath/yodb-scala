@@ -9,5 +9,12 @@ class BlockTest extends FunSpec {
       val expected = "002101f8725e5c78d9f30d87f3fa4c87"
       assert(actual === expected)
     }
+
+    it("should convert string message into block") {
+      val message = "ALPHA"
+      val actual = Block(message).digest.toString
+      val expected = "002101f8725e5c78d9f30d87f3fa4c87"
+      assert(actual === expected)
+    }
   }
 }
