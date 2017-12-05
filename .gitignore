@@ -87,3 +87,7 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 .idea/
+.vscode/
+.yodb/
+*.log
+.ensime_cache/
